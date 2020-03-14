@@ -1,4 +1,6 @@
+import os
 import sys
+import json
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QInputDialog, QLineEdit, QMessageBox
 from PyQt5 import QtCore
 from notes_gui import Ui_MainWindow
@@ -25,6 +27,7 @@ class MainWindow(QMainWindow):
         self.ui.saveNoteButton.clicked.connect(self.save_note)
         self.ui.notesListWidget.itemClicked.connect(self.update_text)
         self.ui.notesListWidget.itemSelectionChanged.connect(self.update_text)
+        self.ui.saveNotesAction.triggered.connect(self.save_notes)
 
     def add_note(self):
         text, ok = QInputDialog().getText(self, "Добавить заметку", "Название заметки: ")
@@ -61,6 +64,18 @@ class MainWindow(QMainWindow):
         if self.ui.notesListWidget.selectedItems():
             key = self.ui.notesListWidget.selectedItems()[0].text()
             self.ui.noteTextEdit.setText(notes[key]["text"])
+
+    def save_notes(self):
+        save_path = QFileDialog.getSaveFileName(self, "Сохранить файл с заметками",
+                                                directory='notes.json',
+                                                filter="json files (*.json)")[0]
+        split_path = save_path.split('.')
+
+        if not (len(split_path) > 1 and split_path[-1] == 'json'):
+            save_path += '.json'
+
+        with open(save_path, "w") as write_file:
+            json.dump(notes, write_file)
         
 
 
