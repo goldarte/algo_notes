@@ -1,8 +1,16 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QInputDialog, QLineEdit, QMessageBox
+from PyQt5 import QtCore
 from notes_gui import Ui_MainWindow
 
 notes = {}
+
+def show_error_msg(msg):
+    error_msg = QMessageBox()
+    error_msg.setIcon(QMessageBox.Critical)
+    error_msg.setWindowTitle('Ошибка!')
+    error_msg.setText(msg)
+    error_msg.exec_()
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -14,31 +22,47 @@ class MainWindow(QMainWindow):
     def init_ui(self):
         self.ui.addNoteButton.clicked.connect(self.add_note)
         self.ui.removeNoteButton.clicked.connect(self.remove_note)
+        self.ui.saveNoteButton.clicked.connect(self.save_note)
+        self.ui.notesListWidget.itemClicked.connect(self.update_text)
+        self.ui.notesListWidget.itemSelectionChanged.connect(self.update_text)
 
     def add_note(self):
-        text, ok = QInputDialog().getText(self, "Добавить заметку",
-                                        "Название заметки: ")
+        text, ok = QInputDialog().getText(self, "Добавить заметку", "Название заметки: ")
         if ok and text:
             if not text in notes.keys():
-                notes[text] = ""
+                notes[text] = {}
+                notes[text]["text"] = ""
+                notes[text]["tags"] = []
                 self.ui.notesListWidget.addItem(text)
+                self.ui.notesListWidget.findItems(text, QtCore.Qt.MatchExactly)[0].setSelected(True)
                 print(notes)
             else:
-                error_msg = QMessageBox()
-                error_msg.setIcon(QMessageBox.Critical)
-                error_msg.setWindowTitle('Ошибка!')
-                error_msg.setText('Такая заметка уже есть! Введите другое имя.')
-                error_msg.exec_()
+                show_error_msg('Такая заметка уже есть! Введите другое имя.')
 
     def remove_note(self):
         if self.ui.notesListWidget.selectedItems():
-            current_item = self.ui.notesListWidget.currentItem()
+            current_item = self.ui.notesListWidget.selectedItems()[0]
             index = self.ui.notesListWidget.row(current_item)
             self.ui.notesListWidget.takeItem(index)
             del notes[current_item.text()]
             print(notes)
         else:
             print("Не выбран элемент!")
+
+    def save_note(self):
+        if self.ui.notesListWidget.selectedItems():
+            key = self.ui.notesListWidget.selectedItems()[0].text()
+            notes[key]["text"] = self.ui.noteTextEdit.toPlainText()
+            print(notes)
+        else:
+            print("Не выбран элемент!")
+
+    def update_text(self):
+        if self.ui.notesListWidget.selectedItems():
+            key = self.ui.notesListWidget.selectedItems()[0].text()
+            self.ui.noteTextEdit.setText(notes[key]["text"])
+        
+
 
 
 if __name__ == "__main__":
