@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTextEdit" name="noteTextEdit">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_3">
+   <widget class="QTextEdit" name="tagTextEdit">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -37,7 +37,7 @@
      <string>Введите тег...</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="addTagButton">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -50,7 +50,7 @@
      <string>Добавить</string>
     </property>
    </widget>
-   <widget class="QListView" name="listView">
+   <widget class="QListView" name="notesListView">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -73,7 +73,7 @@
      <string>Список заметок</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="removeTagButton">
     <property name="geometry">
      <rect>
       <x>760</x>
@@ -86,7 +86,7 @@
      <string>Удалить</string>
     </property>
    </widget>
-   <widget class="QListView" name="listView_2">
+   <widget class="QListView" name="tagsListView">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -109,7 +109,7 @@
      <string>Теги заметки</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="searchTagButton">
     <property name="geometry">
      <rect>
       <x>660</x>
