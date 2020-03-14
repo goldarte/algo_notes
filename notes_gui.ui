@@ -122,7 +122,7 @@
      <string>Поиск по тегу</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="addNoteButton">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -135,7 +135,7 @@
      <string>Добавить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="removeNoteButton">
     <property name="geometry">
      <rect>
       <x>760</x>
@@ -148,7 +148,7 @@
      <string>Удалить</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="saveNoteButton">
     <property name="geometry">
      <rect>
       <x>660</x>
